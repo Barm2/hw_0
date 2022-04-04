@@ -77,6 +77,18 @@ public class Main {
 
             }
         }
+        else
+        {
+           if(standardFriendsNum == 3)
+           {
+               toChange[row][col]=true;
+           }
+           else
+           {
+               toChange[row][col]=false;
+
+           }
+        }
     }
 
     public static void theStudentsGame() {
