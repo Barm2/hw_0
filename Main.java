@@ -30,6 +30,10 @@ public class Main {
         {
             for(int j = starting_col; j<ending_col; j++)
             {
+                if(i==row && j==col)
+                {
+                    continue;
+                }
                 if(board[i][j])
                 {
                     count++;
