@@ -77,6 +77,7 @@ public class Main {
         {
             indexes = str.split(", ");
             System.out.println(indexes[0] + " - " + indexes[1]);
+
         }
     }
 
