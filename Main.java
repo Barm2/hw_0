@@ -30,6 +30,10 @@ public class Main {
         {
             for(int j = starting_col; j<ending_col; j++)
             {
+                if(i==row && j==col)
+                {
+                    continue;
+                }
                 if(board[i][j])
                 {
                     count++;
@@ -77,7 +81,7 @@ public class Main {
         {
             indexes = str.split(", ");
             System.out.println(indexes[0] + " - " + indexes[1]);
-
+            Integer.parseInt(indexes[0]);
         }
     }
 
@@ -87,11 +91,6 @@ public class Main {
         pregame(broadSize);
         boolean[][] board = new boolean[broadSize[0]][broadSize[1]];
         enterStandardToBoard(board, broadSize);
-
-
-
-
-
     }
 
     public static void main(String[] args) throws IOException {
@@ -112,4 +111,3 @@ public class Main {
 }
 //iiiill
 //jjjjj
-
