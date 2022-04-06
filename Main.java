@@ -72,25 +72,36 @@ public class Main {
         }
     }
 
-    public static void enterStandardToBoard(boolean[][] board, int[] broadSize)
+    public static void enterStandardToBoard(boolean[][] board, int rowNum, int colNum)
     {
         System.out.println("Dear president, please enter the cell's indexes.");
         String str;
+        int row, col;
         String[] indexes = {"1", "3"};
-        while((str = scanner.nextLine()) != "Yokra")
+        while(!((str = scanner.nextLine()).equals("Yokra")))
         {
             indexes = str.split(", ");
             System.out.println(indexes[0] + " - " + indexes[1]);
-            Integer.parseInt(indexes[0]);
+            row = Integer.parseInt(indexes[0]);
+            col = Integer.parseInt(indexes[1]);
+            if(row < 0 || col < 0 || row > rowNum || col > colNum)
+            board[row][col] = !board[row][col];
         }
     }
 
     public static void theStudentsGame() {
 
-        int[] broadSize = new int[2];
-        pregame(broadSize);
-        boolean[][] board = new boolean[broadSize[0]][broadSize[1]];
-        enterStandardToBoard(board, broadSize);
+        int[] boardSize = new int[2];
+        pregame(boardSize);//
+        boolean[][] board = new boolean[boardSize[0]][boardSize[1]];
+        enterStandardToBoard(board, boardSize[0], boardSize[1]);
+        /*for(int i = 0; i< boardSize[0]; i++){
+            for (int j = 0; j< boardSize[1]; j++){
+                System.out.print(board[i][j]);
+            }
+            System.out.println();*/
+        boolean[][] toChange = new boolean[boardSize[0]][boardSize[1]];
+        }
     }
 
     public static void main(String[] args) throws IOException {
