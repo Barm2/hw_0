@@ -15,6 +15,7 @@ public class Main {
         System.out.println(x);
         broadSize[1] = scanner.nextInt();
         System.out.println(broadSize[1]);
+        String s = scanner.nextLine();
     }
 
     //the function count the number of academic standard friends of a student
@@ -67,13 +68,26 @@ public class Main {
         }
     }
 
+    public static void enterStandardToBoard(boolean[][] board, int[] broadSize)
+    {
+        System.out.println("Dear president, please enter the cell's indexes.");
+        String str;
+        String[] indexes = {"1", "3"};
+        while((str = scanner.nextLine()) != "Yokra")
+        {
+            indexes = str.split(", ");
+            System.out.println(indexes[0] + " - " + indexes[1]);
+
+        }
+    }
+
     public static void theStudentsGame() {
 
         int[] broadSize = new int[2];
         pregame(broadSize);
         boolean[][] board = new boolean[broadSize[0]][broadSize[1]];
+        enterStandardToBoard(board, broadSize);
 
-        System.out.println("Dear president, please enter the cell's indexes.");
 
 
 
@@ -83,6 +97,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String path = args[0];
         scanner = new Scanner(new File(path));
+        //scanner = new Scanner(System.in);
         int numberOfGames = scanner.nextInt();
         scanner.nextLine();
 
