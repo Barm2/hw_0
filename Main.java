@@ -86,7 +86,6 @@ public class Main {
            else
            {
                toChange[row][col]=false;
-
            }
         }
     }
