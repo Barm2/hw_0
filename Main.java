@@ -10,12 +10,29 @@ public class Main {
         char x;
         System.out.println("Dear president, please enter the board’s size.");
         broadSize[0] = scanner.nextInt();
-        System.out.println(broadSize[0]);
         x = scanner.next().charAt(0);
-        System.out.println(x);
         broadSize[1] = scanner.nextInt();
-        System.out.println(broadSize[1]);
         String s = scanner.nextLine();
+    }
+
+    public static void enterStandardToBoard(boolean[][] board, int rowNum, int colNum)
+    {
+        System.out.println("Dear president, please enter the cell's indexes.");
+        String str;
+        int row, col;
+        String[] indexes = {"1", "3"};
+        while(!((str = scanner.nextLine()).equals("Yokra")))
+        {
+            indexes = str.split(", ");
+            row = Integer.parseInt(indexes[0]);
+            col = Integer.parseInt(indexes[1]);
+            if(row < 0 || col < 0 || row > rowNum || col > colNum)
+            {
+                System.out.println("The cell is not within the board’s boundaries, enter a new cell.");
+                continue;
+            }
+            board[row][col] = !board[row][col];
+        }
     }
 
     //the function count the number of academic standard friends of a student
@@ -43,49 +60,121 @@ public class Main {
         return count;
     }
 
-    public static void studentsToChange(boolean[][] board, int rowNum, int colNum, int row, int col,boolean[][] toChange)
+    public static void studentsToChange(boolean[][] board, int rowNum, int colNum,boolean[][] toChange)
     {
-        int standardFriendsNum = check_around(board, rowNum, colNum, row, col);
-        if(board[row][col])
+        int standardFriendsNum = 0;
+        for(int i = 0; i<rowNum; i++)
         {
-            if((standardFriendsNum==2) || (standardFriendsNum==3))
+            for(int j = 0; j < colNum; j++)
             {
-                toChange[row][col]= false;
+                standardFriendsNum = check_around(board, rowNum, colNum, i, j);
+                if(board[i][j])
+                {
+                    if((standardFriendsNum==2) || (standardFriendsNum==3))
+                    {
+                        toChange[i][j]= false;
+                    }
+                    else
+                    {
+                        toChange[i][j]=true;
+                    }
+                }
+                else
+                {
+                    if(standardFriendsNum == 3)
+                    {
+                        toChange[i][j]=true;
+                    }
+                    else
+                    {
+                        toChange[i][j]=false;
+                    }
+                }
             }
-            else
-            {
-                toChange[row][col]=true;
-
-            }
-        }
-        else
-        {
-           if(standardFriendsNum == 3)
-           {
-               toChange[row][col]=true;
-           }
-           else
-           {
-               toChange[row][col]=false;
-
-           }
         }
     }
 
-    public static void enterStandardToBoard(boolean[][] board, int rowNum, int colNum)
+    public static int semester(boolean[][] board, boolean[][] toChange, int rowNum, int colNum)
     {
-        System.out.println("Dear president, please enter the cell's indexes.");
-        String str;
-        int row, col;
-        String[] indexes = {"1", "3"};
-        while(!((str = scanner.nextLine()).equals("Yokra")))
+        int counter = 0;
+        for(int i = 0; i < rowNum; i++)
         {
-            indexes = str.split(", ");
-            System.out.println(indexes[0] + " - " + indexes[1]);
-            row = Integer.parseInt(indexes[0]);
-            col = Integer.parseInt(indexes[1]);
-            if(row < 0 || col < 0 || row > rowNum || col > colNum)
-            board[row][col] = !board[row][col];
+            for(int j = 0; j < colNum; j++)
+            {
+                if (toChange[i][j])
+                {
+                    board[i][j] = !board[i][j];
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
+    public static int countStandard(boolean[][] board, int rowNum, int colNum)
+    {
+        int counter = 0;
+        for(int i = 0; i<rowNum; i++)
+        {
+            for(int j=0;j<colNum;j++)
+            {
+                if(board[i][j])
+                {
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
+    public static void printBoard(boolean[][] board, int rowNum, int colNum, int n, int s)
+    {
+        System.out.println("Semester Number " + n + ":");
+        for(int i = 0; i<rowNum; i++)
+        {
+            for (int j = 0; j < colNum; j++)
+            {
+                if (board[i][j])
+                {
+                    System.out.print("▮");
+                }
+                else
+                {
+                    System.out.print("▯");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("Number of students" + s + ":");
+    }
+
+    public static void gameplay(boolean[][] board, boolean[][] toChange, int rowNum, int colNum)
+    {
+        final int MAX_SEMESTERS = 1000;
+        int changedStudents = 0;
+        int numOfStandards = 0;
+        for(int i = 0; i< MAX_SEMESTERS; i++)
+        {
+            studentsToChange(board, rowNum, colNum, toChange);
+            changedStudents = semester(board, toChange, rowNum, colNum);
+            if(changedStudents == 0)
+            {
+                break;
+            }
+            numOfStandards = countStandard(board, rowNum, colNum);
+            printBoard(board, rowNum, colNum, i+1, numOfStandards);
+        }
+        if(numOfStandards == 0)
+        {
+            System.out.println("There are no more students.");
+        }
+        else if (changedStudents == 0)
+        {
+            System.out.println("The students have stabilized.");
+        }
+        else
+        {
+            System.out.println("The semesters limitation is over");
         }
     }
 
@@ -95,19 +184,21 @@ public class Main {
         pregame(boardSize);//
         boolean[][] board = new boolean[boardSize[0]][boardSize[1]];
         enterStandardToBoard(board, boardSize[0], boardSize[1]);
-        /*for(int i = 0; i< boardSize[0]; i++){
-            for (int j = 0; j< boardSize[1]; j++){
+        for(int i = 0; i< boardSize[0]; i++)
+        {
+            for (int j = 0; j< boardSize[1]; j++)
+            {
                 System.out.print(board[i][j]);
             }
-            System.out.println();*/
+            System.out.println();
+            }
         boolean[][] toChange = new boolean[boardSize[0]][boardSize[1]];
-        }
+        gameplay(board, toChange, boardSize[0], boardSize[1]);
     }
 
     public static void main(String[] args) throws IOException {
         String path = args[0];
         scanner = new Scanner(new File(path));
-        //scanner = new Scanner(System.in);
         int numberOfGames = scanner.nextInt();
         scanner.nextLine();
 
