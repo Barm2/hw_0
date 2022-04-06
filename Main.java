@@ -5,30 +5,6 @@ import java.util.Scanner;
 public class Main {
     public static Scanner scanner;  // Note: Do not change this line.
 
-    public static int min(int a, int b)
-    {
-        if(a>b)
-        {
-            return b;
-        }
-        else
-        {
-            return a;
-        }
-    }
-
-    public static int max(int a, int b)
-    {
-        if(a>b)
-        {
-            return a;
-        }
-        else
-        {
-            return b;
-        }
-    }
-
     public static void pregame(int[] broadSize)
     {
         char x;
@@ -45,10 +21,10 @@ public class Main {
     public static int check_around(boolean[][] board, int rowNum, int colNum, int row, int col)
     {
         int count = 0;
-        int starting_row = max(0, row-1);
-        int starting_col = max(0, col-1);
-        int ending_row = min(rowNum, row+1);
-        int ending_col = min(colNum, col+1);
+        int starting_row = Math.max(0, row-1);
+        int starting_col = Math.max(0, col-1);
+        int ending_row = Math.min(rowNum, row+1);
+        int ending_col = Math.min(colNum, col+1);
         for(int i = starting_row; i<ending_row; i++)
         {
             for(int j = starting_col; j<ending_col; j++)
@@ -88,13 +64,6 @@ public class Main {
         int[] broadSize = new int[2];
         pregame(broadSize);
         boolean[][] board = new boolean[broadSize[0]][broadSize[1]];
-        for(int i = 0; i< broadSize[0]; i++)
-        {
-            for(int j=0; j<broadSize[1]; j++)
-            {
-                board[i][j] = false;
-            }
-        }
 
         System.out.println("Dear president, please enter the cell's indexes.");
 
