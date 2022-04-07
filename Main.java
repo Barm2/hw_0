@@ -17,7 +17,7 @@ public class Main {
 
     public static void enterStandardToBoard(boolean[][] board, int rowNum, int colNum)
     {
-        System.out.println("Dear president, please enter the cell's indexes.");
+        System.out.println("Dear president, please enter the cell’s indexes.");
         String str;
         int row, col;
         String[] indexes;
@@ -32,7 +32,7 @@ public class Main {
                 continue;
             }
             board[row][col] = !board[row][col];
-            System.out.println("Dear president, please enter the cell's indexes.");
+            System.out.println("Dear president, please enter the cell’s indexes.");
         }
     }
 
@@ -130,7 +130,7 @@ public class Main {
 
     public static void printBoard(boolean[][] board, int rowNum, int colNum, int n, int s)
     {
-        System.out.println("Semester Number " + n + ":");
+        System.out.println("Semester number " + n + ":");
         for(int i = 0; i<rowNum; i++)
         {
             for (int j = 0; j < colNum; j++)
@@ -176,7 +176,7 @@ public class Main {
         }
         else
         {
-            System.out.println("The semesters limitation is over");
+            System.out.println("The semesters limitation is over.");
         }
     }
 
