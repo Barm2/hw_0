@@ -131,7 +131,7 @@ public class Main {
     {
         System.out.println("Semester Number " + n + ":");
         for(int i = 0; i<rowNum; i++)
-        {
+//        {
             for (int j = 0; j < colNum; j++)
             {
                 if (board[i][j])
