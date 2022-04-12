@@ -5,17 +5,28 @@ import java.util.Scanner;
 public class Main {
     public static Scanner scanner;  // Note: Do not change this line.
 
+
+    /**
+     * Scans into an array the sizes of the board
+     * @param broadSize Array for the number of rows and columns
+     */
     public static void pregame(int[] broadSize)
     {
         char x;
         System.out.println("Dear president, please enter the board’s size.");
         broadSize[0] = scanner.nextInt();
-        x = scanner.next().charAt(0);
+        x = scanner.next().charAt(0); //to scan the 'X' without the numbers
         broadSize[1] = scanner.nextInt();
-        String s = scanner.nextLine();
+        String str = scanner.nextLine();//to scan the exceeded enter that's left in the buffer
     }
 
-    public static void enterStandardToBoard(boolean[][] board, int rowNum, int colNum)
+    /**
+     * Scans desired standard students indexes and enters them to the board
+     * @param board An array represents the board
+     * @param rowNumber Number of rows on the board
+     * @param colNumber Number of columns on the board
+     */
+    public static void enterStandardToBoard(boolean[][] board, int rowNumber, int colNumber)
     {
         System.out.println("Dear president, please enter the cell's indexes.");
         String str;
@@ -23,10 +34,11 @@ public class Main {
         String[] indexes;
         while(!((str = scanner.nextLine()).equals("Yokra")))
         {
+            //splits the scanned string into 2 ints
             indexes = str.split(", ");
             row = Integer.parseInt(indexes[0]);
             col = Integer.parseInt(indexes[1]);
-            if(row < 0 || col < 0 || row >= rowNum || col >= colNum)
+            if(row < 0 || col < 0 || row >= rowNumber || col >= colNumber)
             {
                 System.out.println("The cell is not within the board’s boundaries, enter a new cell.");
                 continue;
@@ -36,14 +48,25 @@ public class Main {
         }
     }
 
-    //the function count the number of academic standard friends of a student
-    public static int check_around(boolean[][] board, int rowNum, int colNum, int row, int col)
+    /**
+     * receives a certain student index, and board measurements.
+     * counts the number of academic standard friends of a student.
+     * @param board An array represents the board
+     * @param rowNumber Number of rows on the board
+     * @param colNumber Number of cols on the board
+     * @param row
+     * @param col
+     * @return the number of standard friends a student has
+     */
+    public static int check_around(boolean[][] board, int rowNumber, int colNumber, int row, int col)
     {
         int count = 0;
+        //to avoid exceeding the board array boundaries
         int starting_row = Math.max(0, row-1);
         int starting_col = Math.max(0, col-1);
-        int ending_row = Math.min(rowNum-1, row+1);
-        int ending_col = Math.min(colNum-1, col+1);
+        int ending_row = Math.min(rowNumber-1, row+1);
+        int ending_col = Math.min(colNumber-1, col+1);
+
         for(int i = starting_row; i<=ending_row; i++)
         {
             for(int j = starting_col; j<=ending_col; j++)
@@ -61,17 +84,25 @@ public class Main {
         return count;
     }
 
-    public static void studentsToChange(boolean[][] board, int rowNum, int colNum,boolean[][] toChange)
+    /**
+     *
+     * marks in a new array the indexes of students who needs to change their academic status
+     * @param board An array represents the board
+     * @param rowNumber Number of rows on the board
+     * @param colNumber Number of cols on the board
+     * @param toChange An array represents the student who need to change their academic status
+     */
+    public static void studentsToChange(boolean[][] board, int rowNumber, int colNumber,boolean[][] toChange)
     {
-        int standardFriendsNum;
-        for(int i = 0; i<rowNum; i++)
+        int standardFriendsNumber;
+        for(int i = 0; i<rowNumber; i++)
         {
-            for(int j = 0; j < colNum; j++)
+            for(int j = 0; j < colNumber; j++)
             {
-                standardFriendsNum = check_around(board, rowNum, colNum, i, j);
+                standardFriendsNumber = check_around(board, rowNumber, colNumber, i, j);
                 if(board[i][j])
                 {
-                    if((standardFriendsNum==2) || (standardFriendsNum==3))
+                    if((standardFriendsNumber==2) || (standardFriendsNumber==3))
                     {
                         toChange[i][j]= false;
                     }
@@ -82,7 +113,7 @@ public class Main {
                 }
                 else
                 {
-                    if(standardFriendsNum == 3)
+                    if(standardFriendsNumber == 3)
                     {
                         toChange[i][j]=true;
                     }
@@ -95,12 +126,20 @@ public class Main {
         }
     }
 
-    public static int semester(boolean[][] board, boolean[][] toChange, int rowNum, int colNum)
+    /**
+     *according to toChange array, changes the students' academic status
+     * @param board An array represents the board
+     * @param toChange An array represents the student who need to change their academic status
+     * @param rowNumber Number of rows on the board
+     * @param colNumber Number of cols on the board
+     * @return the number of students that changed their status
+     */
+    public static int semester(boolean[][] board, boolean[][] toChange, int rowNumber, int colNumber)
     {
         int counter = 0;
-        for(int i = 0; i < rowNum; i++)
+        for(int i = 0; i < rowNumber; i++)
         {
-            for(int j = 0; j < colNum; j++)
+            for(int j = 0; j < colNumber; j++)
             {
                 if (toChange[i][j])
                 {
@@ -112,12 +151,14 @@ public class Main {
         return counter;
     }
 
-    public static int countStandard(boolean[][] board, int rowNum, int colNum)
+
+    /**counts the number of standard students in current semester */
+    public static int countStandard(boolean[][] board, int rowNumber, int colNumber)
     {
         int counter = 0;
-        for(int i = 0; i<rowNum; i++)
+        for(int i = 0; i<rowNumber; i++)
         {
-            for(int j=0;j<colNum;j++)
+            for(int j=0;j<colNumber;j++)
             {
                 if(board[i][j])
                 {
@@ -128,12 +169,13 @@ public class Main {
         return counter;
     }
 
-    public static void printBoard(boolean[][] board, int rowNum, int colNum, int n, int s)
+    /** print the board */
+    public static void printBoard(boolean[][] board, int rowNumber, int colNumber, int n, int s)
     {
         System.out.println("Semester Number " + n + ":");
-        for(int i = 0; i<rowNum; i++)
+        for(int i = 0; i<rowNumber; i++)
         {
-            for (int j = 0; j < colNum; j++)
+            for (int j = 0; j < colNumber; j++)
             {
                 if (board[i][j])
                 {
@@ -150,17 +192,24 @@ public class Main {
         System.out.println();
     }
 
-    public static void gameplay(boolean[][] board, boolean[][] toChange, int rowNum, int colNum)
+    /**
+     * runs all semesters until max semester is reached
+     * or there are no students who changed their status from previous semester
+     * @param toChange An array represents the student who need to change their academic status
+     * @param rowNumber Number of rows on the board
+     * @param colNumber Number of cols on the board
+     */
+    public static void gameplay(boolean[][] board, boolean[][] toChange, int rowNumber, int colNumber)
     {
         final int MAX_SEMESTERS = 1000;
         int changedStudents = 0;
         int numOfStandards = 0;
         for(int i = 0; i< MAX_SEMESTERS; i++)
         {
-            numOfStandards = countStandard(board, rowNum, colNum);
-            printBoard(board, rowNum, colNum, i+1, numOfStandards);
-            studentsToChange(board, rowNum, colNum, toChange);
-            changedStudents = semester(board, toChange, rowNum, colNum);
+            numOfStandards = countStandard(board, rowNumber, colNumber);
+            printBoard(board, rowNumber, colNumber, i+1, numOfStandards);
+            studentsToChange(board, rowNumber, colNumber, toChange);
+            changedStudents = semester(board, toChange, rowNumber, colNumber);
             if(changedStudents == 0)
             {
                 break;
@@ -180,6 +229,10 @@ public class Main {
         }
     }
 
+    /**
+     * the game
+     * initiates the board and the helping array
+     */
     public static void theStudentsGame() {
 
         int[] boardSize = new int[2];
@@ -190,6 +243,11 @@ public class Main {
         gameplay(board, toChange, boardSize[0], boardSize[1]);
     }
 
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         String path = args[0];
         scanner = new Scanner(new File(path));
@@ -210,7 +268,4 @@ public class Main {
 
 
 
-
-
-//
 
