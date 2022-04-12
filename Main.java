@@ -28,7 +28,7 @@ public class Main {
      */
     public static void enterStandardToBoard(boolean[][] board, int rowNumber, int colNumber)
     {
-        System.out.println("Dear president, please enter the cell's indexes.");
+        System.out.println("Dear president, please enter the cell’s indexes.");
         String str;
         int row, col;
         String[] indexes;
@@ -44,7 +44,7 @@ public class Main {
                 continue;
             }
             board[row][col] = !board[row][col];
-            System.out.println("Dear president, please enter the cell's indexes.");
+            System.out.println("Dear president, please enter the cell’s indexes.");
         }
     }
 
@@ -90,7 +90,7 @@ public class Main {
      * @param board An array represents the board
      * @param rowNumber Number of rows on the board
      * @param columnNumber Number of columns on the board
-     * @param toChange An array represents the student who need to change their academic status
+     * @param toChange An array represents the students whom their academic status needs to be changed
      */
     public static void studentsToChange(boolean[][] board, int rowNumber, int columnNumber,boolean[][] toChange)
     {
@@ -129,7 +129,7 @@ public class Main {
     /**
      *according to toChange array, changes the students' academic status
      * @param board An array represents the board
-     * @param toChange An array represents the student who need to change their academic status
+     * @param toChange An array represents the students whom their academic status needs to be changed
      * @param rowNumber Number of rows on the board
      * @param columnNumber Number of columns on the board
      * @return the number of students that changed their status
@@ -172,7 +172,7 @@ public class Main {
     /** print the board */
     public static void printBoard(boolean[][] board, int rowNumber, int columnNumber, int n, int s)
     {
-        System.out.println("Semester Number " + n + ":");
+        System.out.println("Semester number " + n + ":");
         for(int i = 0; i<rowNumber; i++)
         {
             for (int j = 0; j < columnNumber; j++)
@@ -195,7 +195,7 @@ public class Main {
     /**
      * runs all semesters until max semester is reached
      * or there are no students who changed their status from previous semester
-     * @param toChange An array represents the student who need to change their academic status
+     * @param toChange An array represents the students whom their academic status needs to be changed
      * @param rowNumber Number of rows on the board
      * @param columnNumber Number of columns on the board
      */
@@ -225,7 +225,7 @@ public class Main {
         }
         else
         {
-            System.out.println("The semesters limitation is over");
+            System.out.println("The semesters limitation is over.");
         }
     }
 
@@ -247,6 +247,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String path = args[0];
         scanner = new Scanner(new File(path));
+        //scanner = new Scanner(System.in);
         int numberOfGames = scanner.nextInt();
         scanner.nextLine();
 
@@ -259,9 +260,3 @@ public class Main {
         System.out.println("All games are ended.");
     }
 }
-
-
-
-
-
-
