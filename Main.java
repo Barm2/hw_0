@@ -55,7 +55,7 @@ public class Main {
      * @param rowNumber Number of rows on the board
      * @param columnNumber Number of cols on the board
      * @param row The row of the student
-     * @param col The col of the student
+     * @param column The col of the student
      * @return the number of standard friends a student has
      */
     public static int check_around(boolean[][] board, int rowNumber, int columnNumber, int row, int column)
