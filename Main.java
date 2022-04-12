@@ -5,16 +5,27 @@ import java.util.Scanner;
 public class Main {
     public static Scanner scanner;  // Note: Do not change this line.
 
+
+    /**
+     * Scans into an array the sizes of the board
+     * @param broadSize Array for the number of rows and columns
+     */
     public static void pregame(int[] broadSize)
     {
         char x;
         System.out.println("Dear president, please enter the board’s size.");
         broadSize[0] = scanner.nextInt();
-        x = scanner.next().charAt(0);
+        x = scanner.next().charAt(0); //to scan the 'X' without the numbers
         broadSize[1] = scanner.nextInt();
-        String s = scanner.nextLine();
+        String str = scanner.nextLine();//to scan the exceeded enter that's left in the buffer
     }
 
+    /**
+     * Scans desired standard students indexes and enters them to the board
+     * @param board An array represents the board
+     * @param rowNum Number of rows
+     * @param colNum Number of columns
+     */
     public static void enterStandardToBoard(boolean[][] board, int rowNum, int colNum)
     {
         System.out.println("Dear president, please enter the cell’s indexes.");
@@ -23,6 +34,7 @@ public class Main {
         String[] indexes;
         while(!((str = scanner.nextLine()).equals("Yokra")))
         {
+            //splits the scanned string into 2 ints
             indexes = str.split(", ");
             row = Integer.parseInt(indexes[0]);
             col = Integer.parseInt(indexes[1]);
@@ -36,14 +48,29 @@ public class Main {
         }
     }
 
-    //the function count the number of academic standard friends of a student
+    /**
+     * receives a certain student index, and board measurements.
+     * the function counts the number of academic standard friends of a student.
+     * returns the number of standard friends a student has.
+     */
+    /**
+     *
+     * @param board
+     * @param rowNum
+     * @param colNum
+     * @param row
+     * @param col
+     * @return
+     */
     public static int check_around(boolean[][] board, int rowNum, int colNum, int row, int col)
     {
         int count = 0;
+        //to avoid exceeding the board array boundaries
         int starting_row = Math.max(0, row-1);
         int starting_col = Math.max(0, col-1);
         int ending_row = Math.min(rowNum-1, row+1);
         int ending_col = Math.min(colNum-1, col+1);
+
         for(int i = starting_row; i<=ending_row; i++)
         {
             for(int j = starting_col; j<=ending_col; j++)
@@ -61,6 +88,14 @@ public class Main {
         return count;
     }
 
+    /**
+     *
+     * marks in a new array the indexes of students who needs to change their academic status
+     * @param board
+     * @param rowNum
+     * @param colNum
+     * @param toChange
+     */
     public static void studentsToChange(boolean[][] board, int rowNum, int colNum,boolean[][] toChange)
     {
         int standardFriendsNum;
@@ -95,6 +130,10 @@ public class Main {
         }
     }
 
+    /**
+     *according to toChange array, changes the students' academic status
+     * also returns the number of students that changed their status
+     */
     public static int semester(boolean[][] board, boolean[][] toChange, int rowNum, int colNum)
     {
         int counter = 0;
@@ -112,6 +151,9 @@ public class Main {
         return counter;
     }
 
+    /**
+     * the function counts the number of standard students in current semester
+     */
     public static int countStandard(boolean[][] board, int rowNum, int colNum)
     {
         int counter = 0;
@@ -128,6 +170,9 @@ public class Main {
         return counter;
     }
 
+    /**
+     * prints the board
+     */
     public static void printBoard(boolean[][] board, int rowNum, int colNum, int n, int s)
     {
         System.out.println("Semester number " + n + ":");
@@ -150,6 +195,10 @@ public class Main {
         System.out.println();
     }
 
+    /**
+     * runs all semesters until max semester is reached
+     * or there are no students who changed their status from previous semester
+     */
     public static void gameplay(boolean[][] board, boolean[][] toChange, int rowNum, int colNum)
     {
         final int MAX_SEMESTERS = 1000;
@@ -180,6 +229,10 @@ public class Main {
         }
     }
 
+    /**
+     * the game
+     * initiates the board and the helping array
+     */
     public static void theStudentsGame() {
 
         int[] boardSize = new int[2];
